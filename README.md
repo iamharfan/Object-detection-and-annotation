@@ -15,6 +15,3 @@ To integrate object detection with multi-object tracking algorithms (e.g., SORT,
 
 To analyze and address ethical concerns related to the deployment of AI-driven object detection systems in autonomous vehicles, including model bias and the implications of false positives and false negatives on road safety. 
 
-A group of people crossing a street
-
-AI-generated content may be incorrect., Picture
