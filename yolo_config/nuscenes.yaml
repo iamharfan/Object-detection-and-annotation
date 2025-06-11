@@ -1,0 +1,6 @@
+path: ../datasets/yolo-format
+train: images/train
+val: images/val
+
+nc: 10
+names: ["car","pedestrian","bus","motorcycle","bicycle","traffic_cone","barrier","construction_vehicle","trailer"]

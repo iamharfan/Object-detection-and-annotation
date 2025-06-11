@@ -1,0 +1,10 @@
+datasets/
+runs/
+models/
+*.tgz
+__pycache__/
+env/
+*.log
+*.ckpt
+*.pt
+
