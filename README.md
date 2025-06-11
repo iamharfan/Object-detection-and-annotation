@@ -1,17 +1,125 @@
-# Object-detection-and-annotation
-Object detection and Annotation for autonomous vehicle safety
+📄 README.md — Full Content
+markdown
+Copy
+# 🚘 Object Detection and Annotation for Autonomous Driving using YOLOv8
 
-Object detection in video plays a crucial role in enhancing road safety and advancing autonomous systems. The ability to accurately and efficiently identify objects in real-time video streams is fundamental for the development of intelligent transportation systems and autonomous vehicles. Improving the accuracy and efficiency of object detection directly contributes to reducing accidents and enhancing the overall safety of road users. The ethical considerations explored in this project, such as bias and the impact of false detections, are vital for ensuring responsible and trustworthy AI deployment in safety-critical applications, addressing concerns about fairness and accountability in autonomous decision-making. This project contributes to the development of more reliable and safer autonomous and semi-autonomous vehicles. 
+This project is part of my Master's program at the University of Limerick. It focuses on developing a **real-time object detection system** for autonomous vehicle safety using the **YOLOv8 model** trained on the **NuScenes dataset**.
 
-The primary goal of this project is to develop and evaluate a real-time object detection and annotation framework tailored for road safety applications. The key objectives are: 
+---
 
-To evaluate the performance of different deep learning-based object detection architectures (e.g., YOLO, Faster R-CNN, SSD) for identifying traffic-related objects in video streams. 
+## 📌 Project Overview
 
-To implement and utilize efficient bounding box annotation techniques for preparing high-quality training datasets. 
+🎯 **Goal**: Build a scalable, real-time object detection system capable of identifying critical road elements such as:
+- Cars
+- Pedestrians
+- Trucks
+- Traffic cones
+- Buses, and more
 
-To optimize selected object detection models for real-time inference on computationally constrained platforms using techniques such as quantization, TensorRT, and OpenVINO. 
+⚙️ **Architecture**:
+- YOLOv8 (`ultralytics`) as the core detection model
+- Trained on the NuScenes mini dataset (`CAM_FRONT` camera view)
+- Designed for deployment on hardware like NVIDIA Tesla V100
+- (Planned) Export to ONNX/TensorRT for optimized real-time inference
 
-To integrate object detection with multi-object tracking algorithms (e.g., SORT, DeepSORT, ByteTrack) to improve the consistency and reliability of object tracking across video frames. 
+---
 
-To analyze and address ethical concerns related to the deployment of AI-driven object detection systems in autonomous vehicles, including model bias and the implications of false positives and false negatives on road safety. 
+## 🗂️ Directory Structure
 
+├── datasets/ # Not pushed to GitHub (ignored)
+│ ├── nuscenes/ # Raw NuScenes data (v1.0-mini)
+│ └── yolo-format/ # YOLOv8-compatible structure
+├── models/ # Exported weights (.pt)
+├── runs/ # YOLOv8 training logs
+├── scripts/
+│ └── convert_nuscenes_to_yolo.py # NuScenes → YOLO format
+├── yolo_config/
+│ └── nuscenes.yaml # YOLO training config file
+├── requirements.txt
+├── README.md
+└── .gitignore
+
+yaml
+Copy
+
+---
+
+## 🧠 Dataset
+
+Using [NuScenes](https://www.nuscenes.org/) mini version:
+- 10 training scenes, 2 validation scenes
+- Converted using custom Python script
+- Uses only the `CAM_FRONT` camera view
+- Supports 10 object classes:
+  - car, pedestrian, truck, bus, motorcycle, bicycle, traffic_cone, barrier, construction_vehicle, trailer
+
+---
+
+## 🚀 Training YOLOv8
+
+First, activate your virtual environment:
+
+```bash
+source env/bin/activate
+Then run:
+
+bash
+Copy
+yolo detect train \
+  data=yolo_config/nuscenes.yaml \
+  model=yolov8s.pt \
+  epochs=100 \
+  imgsz=640 \
+  batch=16 \
+  device=0 \
+  amp=True \
+  name=yolov8_nuscenes
+🛠️ Preprocessing Script
+The script scripts/convert_nuscenes_to_yolo.py converts NuScenes JSON annotations to YOLO .txt format. It also copies images into the images/train and images/val folders.
+
+bash
+Copy
+cd scripts
+python convert_nuscenes_to_yolo.py
+📊 Evaluation
+After training:
+
+bash
+Copy
+yolo detect val model=runs/detect/yolov8_nuscenes/weights/best.pt data=yolo_config/nuscenes.yaml
+Visuals like confusion_matrix.png, results.png are saved in runs/detect/yolov8_nuscenes/.
+
+🔄 Roadmap
+ Build preprocessing pipeline (NuScenes → YOLO)
+
+ Train YOLOv8s on NuScenes mini
+
+ Export to ONNX and TensorRT
+
+ Run real-time inference on live video or dashcam feed
+
+ (Optional) Add tracking module (DeepSORT)
+
+📦 Dependencies
+Install all dependencies:
+
+bash
+Copy
+pip install -r requirements.txt
+Main tools:
+
+PyTorch
+
+Ultralytics YOLOv8
+
+OpenCV
+
+NuScenes-devkit
+
+PyQuaternion
+
+👤 Author
+Mohammed Harfan Abdul Azeez
+Master of Engineering in Computer Vision & AI
+University of Limerick
+iamharfan/github.com
