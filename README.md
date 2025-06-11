@@ -1,6 +1,3 @@
-📄 README.md — Full Content
-markdown
-Copy
 # 🚘 Object Detection and Annotation for Autonomous Driving using YOLOv8
 
 This project is part of my Master's program at the University of Limerick. It focuses on developing a **real-time object detection system** for autonomous vehicle safety using the **YOLOv8 model** trained on the **NuScenes dataset**.
