@@ -1,6 +1,17 @@
-path: ../datasets/yolo-format
+path: /home/harfan/masters-project/datasets/yolo-format
 train: images/train
 val: images/val
 
 nc: 10
-names: ["car","pedestrian","bus","motorcycle","bicycle","traffic_cone","barrier","construction_vehicle","trailer"]
+names:
+  - car
+  - pedestrian
+  - truck
+  - bus
+  - motorcycle
+  - bicycle
+  - traffic_cone
+  - barrier
+  - construction_vehicle
+  - trailer
+
